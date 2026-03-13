@@ -2,12 +2,18 @@ package com.github.fionasprinkles.monsteradoptioncenter.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "monster")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Monster {
 
     @Id
@@ -21,14 +27,4 @@ public class Monster {
     private int dangerLevel;
     private int tamedLevel;
     private boolean adopted;
-
-    public Monster() {
-
-    }
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
 }
