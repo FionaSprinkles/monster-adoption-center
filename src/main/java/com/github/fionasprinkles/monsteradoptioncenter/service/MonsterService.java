@@ -1,7 +1,9 @@
 package com.github.fionasprinkles.monsteradoptioncenter.service;
 
 import com.github.fionasprinkles.monsteradoptioncenter.MonsterMapper;
+import com.github.fionasprinkles.monsteradoptioncenter.dto.CreateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
+import com.github.fionasprinkles.monsteradoptioncenter.entity.Monster;
 import com.github.fionasprinkles.monsteradoptioncenter.repository.MonsterRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,13 @@ public class MonsterService {
     public List<MonsterDTO> findAll() {
         return monsterRepository.findAll().stream().map(monsterMapper::toDTO).toList();
     }
+    public MonsterDTO createMonster(CreateMonsterDTO createMonsterDTO) {
+        Monster monster = monsterMapper.toEntity(createMonsterDTO);
+        monsterRepository.save(monster);
+        return monsterMapper.toDTO(monster);
+    }
+
+
 
 
 }
