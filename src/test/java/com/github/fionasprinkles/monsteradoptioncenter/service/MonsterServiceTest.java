@@ -1,6 +1,7 @@
 package com.github.fionasprinkles.monsteradoptioncenter.service;
 
 import com.github.fionasprinkles.monsteradoptioncenter.MonsterMapper;
+import com.github.fionasprinkles.monsteradoptioncenter.dto.CreateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.entity.Monster;
 import com.github.fionasprinkles.monsteradoptioncenter.repository.MonsterRepository;
@@ -94,8 +95,23 @@ class MonsterServiceTest {
         assertThat(result.get(0).getName()).isEqualTo("Fluffy");
     }
 
+    @DisplayName("Should create new monster")
     @Test
     void createMonster() {
+
+        CreateMonsterDTO createMonsterDTO = new CreateMonsterDTO();
+
+        when(monsterMapper.toEntity(createMonsterDTO)).thenReturn(monster);
+        when(monsterRepository.save(monster)).thenReturn(monster);
+        when(monsterMapper.toDTO(monster)).thenReturn(monsterDTO);
+
+        MonsterDTO result = monsterService.createMonster(createMonsterDTO);
+
+        verify(monsterMapper).toEntity(createMonsterDTO);
+        verify(monsterRepository).save(monster);
+        verify(monsterMapper).toDTO(monster);
+
+        assertThat(result).isEqualTo(monsterDTO);
     }
 
     @Test
