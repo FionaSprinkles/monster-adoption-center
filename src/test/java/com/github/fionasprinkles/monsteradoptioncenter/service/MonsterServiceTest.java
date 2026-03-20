@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -116,5 +117,15 @@ class MonsterServiceTest {
 
     @Test
     void findById() {
+
+        when(monsterRepository.findById(1L)).thenReturn(Optional.of(monster));
+        when(monsterMapper.toDTO(monster)).thenReturn(monsterDTO);
+
+        MonsterDTO result = monsterService.findById(1L);
+
+        verify(monsterRepository).findById(1L);
+        verify(monsterMapper).toDTO(monster);
+
+        assertThat(result).isEqualTo(monsterDTO);
     }
 }
