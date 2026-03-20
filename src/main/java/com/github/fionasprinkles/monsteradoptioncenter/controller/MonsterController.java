@@ -2,15 +2,13 @@ package com.github.fionasprinkles.monsteradoptioncenter.controller;
 
 import com.github.fionasprinkles.monsteradoptioncenter.dto.CreateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
+import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.service.MonsterService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/monsters")
@@ -48,8 +46,22 @@ public class MonsterController {
     }
 
     //Visa formulär för uppdatering
+    @GetMapping("/edit")
+    public String editMonsterForm(@PathVariable Long id, Model model) {
+        MonsterDTO monster = monsterService.findById(id);
+        model.addAttribute("updateMonsterDTO", monster);
+        return "monsters/edit";
+    }
 
-    //Uppdatera objekt
+//    //Uppdatera objekt
+//    @PostMapping
+//    public String editMonster(@Valid @ModelAttribute UpdateMonsterDTO updateMonsterDTO, BindingResult bindingResult, Model model) {
+//        if (bindingResult.hasErrors()) {
+//            return "monsters/edit";
+//        }else {
+//            monsterService.updateMonster//TODO create method
+//        }
+//    }
 
     //Ta bort objekt
 }
