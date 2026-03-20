@@ -27,6 +27,7 @@ public class MonsterMapper {
 
     public MonsterDTO toDTO(Monster monster) {
         MonsterDTO monsterDTO = new MonsterDTO();
+        monsterDTO.setId(monster.getId());
         monsterDTO.setName(monster.getName());
         monsterDTO.setSpecies(monster.getSpecies());
         monsterDTO.setDescription(monster.getDescription());
@@ -40,13 +41,13 @@ public class MonsterMapper {
 
     public UpdateMonsterDTO toUpdateDTO(Monster monster, UpdateMonsterDTO update) {
 
-        update.setName(monster.getName());
-        update.setSpecies(monster.getSpecies());
-        update.setDescription(monster.getDescription());
-        update.setArrivalDate(monster.getArrivalDate());
-        update.setDangerLevel(monster.getDangerLevel());
-        update.setTamedLevel(monster.getTamedLevel());
-        update.setAdopted(monster.isAdopted());
+        monster.setName(update.getName());
+        monster.setSpecies(update.getSpecies());
+        monster.setDescription(update.getDescription());
+        monster.setArrivalDate(update.getArrivalDate());
+        monster.setDangerLevel(update.getDangerLevel());
+        monster.setTamedLevel(update.getTamedLevel());
+        monster.setAdopted(update.isAdopted());
 
         return update;
     }
