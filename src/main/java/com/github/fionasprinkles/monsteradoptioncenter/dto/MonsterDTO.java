@@ -1,6 +1,7 @@
 package com.github.fionasprinkles.monsteradoptioncenter.dto;
 
 
+import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -11,6 +12,9 @@ import java.time.LocalDate;
 
 @Data
 public class MonsterDTO {
+
+    @GeneratedValue
+    private Long id;
 
     @NotBlank
     private String name;
