@@ -29,12 +29,10 @@ public class MonsterService {
         return monsterMapper.toDTO(monster);
     }
 
-    public List<MonsterDTO> findById(Long id) {
-        try {
-            return monsterRepository.findById(id).stream().map(monsterMapper::toDTO).toList();
-        }catch (Exception e){
-            throw new RuntimeException("Monster not found");
-        }
+    public MonsterDTO findById(Long id) {
+        Monster monster = monsterRepository.findById(id).orElseThrow(() -> new RuntimeException("Monster not found"));
+
+        return monsterMapper.toDTO(monster);
 
 
     }
