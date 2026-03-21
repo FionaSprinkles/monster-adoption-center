@@ -64,4 +64,9 @@ public class MonsterController {
     }
 
     //Ta bort objekt
+    @PostMapping("/delete/{id}")
+    public String deleteMonster(@PathVariable Long id) {
+        monsterService.deleteMonster(id);
+        return "redirect:/monsters/list";
+    }
 }
