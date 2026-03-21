@@ -51,4 +51,12 @@ public class MonsterService {
         return monsterMapper.toDTO(monster);
     }
 
+
+    public void deleteMonster(Long id) {
+        if (!monsterRepository.existsById(id)) {
+            throw new RuntimeException("Monster with id " + id + " not found");
+        }
+        monsterRepository.deleteById(id);
+    }
+
 }
