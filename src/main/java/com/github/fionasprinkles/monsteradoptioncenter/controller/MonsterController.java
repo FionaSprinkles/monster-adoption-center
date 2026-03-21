@@ -46,22 +46,22 @@ public class MonsterController {
     }
 
     //Visa formulär för uppdatering
-    @GetMapping("/edit")
+    @GetMapping("/edit/{id}")
     public String editMonsterForm(@PathVariable Long id, Model model) {
         MonsterDTO monster = monsterService.findById(id);
         model.addAttribute("updateMonsterDTO", monster);
         return "monsters/edit";
     }
 
-//    //Uppdatera objekt
-//    @PostMapping
-//    public String editMonster(@Valid @ModelAttribute UpdateMonsterDTO updateMonsterDTO, BindingResult bindingResult, Model model) {
-//        if (bindingResult.hasErrors()) {
-//            return "monsters/edit";
-//        }else {
-//            monsterService.updateMonster//TODO create method
-//        }
-//    }
+    //Uppdatera objekt
+    @PostMapping("/edit/{id}")
+    public String editMonster(@PathVariable Long id, @Valid @ModelAttribute UpdateMonsterDTO updateMonsterDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "monsters/edit";
+        }else {
+            monsterService.updateMonster(id, updateMonsterDTO);
+        }return "redirect:/monsters/list";
+    }
 
     //Ta bort objekt
 }
