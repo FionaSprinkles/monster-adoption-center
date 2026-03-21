@@ -39,7 +39,7 @@ public class MonsterMapper {
 
     }
 
-    public UpdateMonsterDTO toUpdateDTO(Monster monster, UpdateMonsterDTO update) {
+    public void toUpdateDTO(Monster monster, UpdateMonsterDTO update) {
 
         monster.setName(update.getName());
         monster.setSpecies(update.getSpecies());
@@ -49,7 +49,6 @@ public class MonsterMapper {
         monster.setTamedLevel(update.getTamedLevel());
         monster.setAdopted(update.isAdopted());
 
-        return update;
     }
 
 }
