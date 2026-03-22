@@ -25,20 +25,30 @@ public class Monster {
     private Long id;
 
     @NotBlank
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "species")
     private String species;
 
+    @Column(name = "description")
     private String description;
 
     @NotNull
+    @Column(name = "arrival_date")
     private LocalDate arrivalDate;
 
     @Min(0)@Max(10)
+    @Column(name = "danger_level")
     private int dangerLevel;
 
     @Min(0)@Max(10)
+    @Column(name = "tamed_level")
     private int tamedLevel;
 
+    @Column(name = "adopted")
     private boolean adopted;
 }
