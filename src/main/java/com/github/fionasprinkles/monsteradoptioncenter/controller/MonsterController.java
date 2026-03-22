@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/monsters")
@@ -37,11 +38,11 @@ public class MonsterController {
 
     //Skapa objekt
     @PostMapping
-    public String newMonster(@Valid @ModelAttribute CreateMonsterDTO createMonsterDTO, BindingResult bindingResult, Model model) {
+    public String newMonster(@Valid @ModelAttribute CreateMonsterDTO createMonsterDTO, BindingResult bindingResult, @RequestParam("image") MultipartFile image) {
         if (bindingResult.hasErrors()) {
             return "monsters/new";
         } else {
-            monsterService.createMonster(createMonsterDTO);
+            monsterService.createMonster(createMonsterDTO, image);
         }return "redirect:/monsters/list";
     }
 

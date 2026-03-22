@@ -15,6 +15,7 @@ public class MonsterMapper {
     public Monster toEntity(CreateMonsterDTO create) {
         Monster monster = new Monster();
         monster.setName(create.getName());
+        monster.setImageUrl(create.getImageUrl());
         monster.setSpecies(create.getSpecies());
         monster.setDescription(create.getDescription());
         monster.setArrivalDate(create.getArrivalDate());
@@ -29,6 +30,7 @@ public class MonsterMapper {
         MonsterDTO monsterDTO = new MonsterDTO();
         monsterDTO.setId(monster.getId());
         monsterDTO.setName(monster.getName());
+        monsterDTO.setImageUrl(monster.getImageUrl());
         monsterDTO.setSpecies(monster.getSpecies());
         monsterDTO.setDescription(monster.getDescription());
         monsterDTO.setArrivalDate(monster.getArrivalDate());
@@ -42,6 +44,7 @@ public class MonsterMapper {
     public void toUpdateDTO(Monster monster, UpdateMonsterDTO update) {
 
         monster.setName(update.getName());
+        monster.setImageUrl(update.getImageUrl());
         monster.setSpecies(update.getSpecies());
         monster.setDescription(update.getDescription());
         monster.setArrivalDate(update.getArrivalDate());

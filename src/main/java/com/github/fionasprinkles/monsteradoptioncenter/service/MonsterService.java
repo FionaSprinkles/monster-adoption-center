@@ -7,7 +7,12 @@ import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.entity.Monster;
 import com.github.fionasprinkles.monsteradoptioncenter.repository.MonsterRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -24,8 +29,22 @@ public class MonsterService {
     public List<MonsterDTO> findAll() {
         return monsterRepository.findAll().stream().map(monsterMapper::toDTO).toList();
     }
-    public MonsterDTO createMonster(CreateMonsterDTO createMonsterDTO) {
+    public MonsterDTO createMonster(CreateMonsterDTO createMonsterDTO, MultipartFile image) {
         Monster monster = monsterMapper.toEntity(createMonsterDTO);
+        if (!image.isEmpty()) {
+            try {
+                String filename = image.getOriginalFilename();
+
+                Path path = Paths.get("src/main/resources/static/images/" + filename);
+
+                Files.write(path, image.getBytes());
+
+                monster.setImageUrl("/images/" + filename);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         monsterRepository.save(monster);
         return monsterMapper.toDTO(monster);
     }
