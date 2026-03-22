@@ -15,7 +15,7 @@
 <div class="container">
 <h1>Lägg till ett nytt monster i centret</h1>
 
-    <form class="monster-form" action="/monsters" method="post">
+    <form class="monster-form" action="/monsters" method="post" enctype="multipart/form-data">
     <div>
         <div class="form-group">
             <label for="name">Namn</label>
@@ -36,6 +36,10 @@
             @endif
         </div>
     </div>
+        <div class="form-group">
+            <label>Välj bild:</label>
+            <input type="file" name="image" accept="image/png, image/jpeg">
+        </div>
     <div>
         <label>Art:</label>
         <input type="text" name="species" value="${createMonsterDTO.getSpecies()}">
