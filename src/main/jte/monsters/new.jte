@@ -2,6 +2,7 @@
 @import org.springframework.validation.BindingResult
 @param CreateMonsterDTO createMonsterDTO
 @param BindingResult bindingResult
+@param String error
 
 <!DOCTYPE html>
 <html lang="sv">
@@ -39,6 +40,11 @@
         <div class="form-group">
             <label>Välj bild:</label>
             <input type="file" name="image" accept="image/png, image/jpeg">
+            @if(error != null)
+                <div class="error-text">
+                ${error}
+                </div>
+            @endif
         </div>
     <div>
         <label>Art:</label>
