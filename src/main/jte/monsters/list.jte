@@ -20,18 +20,29 @@
     <thead>
     <tr>
         <th>Name</th>
+        <th>Image</th>
         <th>Species</th>
         <th>Danger Level</th>
         <th>Tamed Level</th>
         <th>Status</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     @for(var monster : monsters)
         <tr>
             <td>${monster.getName()}</td>
+
+            <td>
+                @if(monster.getImageUrl() != null)
+                    <img src="${monster.getImageUrl()}"
+                         alt="${monster.getName()}"
+                         style="width: 50px; height: 50px; border-radius: 50%;">
+                @endif
+            </td>
             <td>${monster.getSpecies()}</td>
             <td>${monster.getDangerLevel()}</td>
+            <td>${monster.getTamedLevel()}</td>
             <td>${monster.isAdopted() ? "Adopted" : "Available"}</td>
             <td>
                 <a href="/monsters/edit/${monster.getId()}">Edit</a>
