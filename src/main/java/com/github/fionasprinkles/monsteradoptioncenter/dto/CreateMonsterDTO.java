@@ -14,6 +14,8 @@ public class CreateMonsterDTO {
     @NotBlank
     private String name;
 
+    private String imageUrl;
+
     private String species;
 
     private String description;

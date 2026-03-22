@@ -19,6 +19,8 @@ public class MonsterDTO {
     @NotBlank
     private String name;
 
+    private String imageUrl;
+
     private String species;
 
     private String description;
