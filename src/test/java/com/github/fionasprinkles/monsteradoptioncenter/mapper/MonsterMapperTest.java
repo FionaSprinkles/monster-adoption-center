@@ -47,6 +47,26 @@ class MonsterMapperTest {
     @DisplayName("Should map Monster to MonsterDTO")
     @Test
     void toDTO() {
+        Monster monster = new Monster();
+        monster.setId(1L);
+        monster.setName("Fluffy");
+        monster.setSpecies("Dragon");
+        monster.setDescription("Fluffy dragon");
+        monster.setArrivalDate(LocalDate.of(2026, 1, 1));
+        monster.setDangerLevel(5);
+        monster.setTamedLevel(7);
+        monster.setAdopted(false);
+
+        MonsterDTO result = monsterMapper.toDTO(monster);
+
+        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getName()).isEqualTo("Fluffy");
+        assertThat(result.getSpecies()).isEqualTo("Dragon");
+        assertThat(result.getDescription()).isEqualTo("Fluffy dragon");
+        assertThat(result.getArrivalDate()).isEqualTo(LocalDate.of(2026, 1, 1));
+        assertThat(result.getDangerLevel()).isEqualTo(5);
+        assertThat(result.getTamedLevel()).isEqualTo(7);
+        assertThat(result.isAdopted()).isFalse();
 
     }
 
