@@ -19,6 +19,11 @@ public class MonsterController {
     private final MonsterService monsterService;
     private final MonsterMapper monsterMapper;
 
+    private static final String REDIRECT_MONSTERS = "redirect:/monsters";
+    private static final String VIEW_LIST = "monsters/list";
+    private static final String VIEW_NEW = "monsters/new";
+    private static final String VIEW_EDIT = "monsters/edit";
+
     public MonsterController(MonsterService monsterService, MonsterMapper monsterMapper) {
         this.monsterService = monsterService;
         this.monsterMapper = monsterMapper;
@@ -29,24 +34,24 @@ public class MonsterController {
     @GetMapping
     public String listAllMonsters(Model model) {
         model.addAttribute("monsters", monsterService.findAll());
-        return "monsters/list";
+        return VIEW_LIST;
     }
 
     //Visa formulär för nytt objekt
     @GetMapping("/new")
     public String newMonsterForm(Model model) {
         model.addAttribute("createMonsterDTO", new CreateMonsterDTO());
-        return "monsters/new";
+        return VIEW_NEW;
     }
 
     //Skapa objekt
     @PostMapping
     public String newMonster(@Valid @ModelAttribute CreateMonsterDTO createMonsterDTO, BindingResult bindingResult, @RequestParam("image") MultipartFile image) {
         if (bindingResult.hasErrors()) {
-            return "monsters/new";
+            return VIEW_NEW;
         } else {
             monsterService.createMonster(createMonsterDTO, image);
-        }return "redirect:/monsters";
+        }return REDIRECT_MONSTERS;
     }
 
     //Visa formulär för uppdatering
@@ -59,23 +64,23 @@ public class MonsterController {
         model.addAttribute("updateMonsterDTO", dto);
         model.addAttribute("id", id);
 
-        return "monsters/edit";
+        return VIEW_EDIT;
     }
 
     //Uppdatera objekt
     @PostMapping("/edit/{id}")
     public String editMonster(@PathVariable Long id, @Valid @ModelAttribute UpdateMonsterDTO updateMonsterDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "monsters/edit";
+            return VIEW_EDIT;
         }else {
             monsterService.updateMonster(id, updateMonsterDTO);
-        }return "redirect:/monsters";
+        }return REDIRECT_MONSTERS;
     }
 
     //Ta bort objekt
     @PostMapping("/delete/{id}")
     public String deleteMonster(@PathVariable Long id) {
         monsterService.deleteMonster(id);
-        return "redirect:/monsters";
+        return REDIRECT_MONSTERS;
     }
 }
