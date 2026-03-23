@@ -11,8 +11,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -56,6 +58,17 @@ void listMonsters() throws Exception {
         mockMvc.perform(get("/monsters/edit/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("monsters/edit"));
+    }
+
+    @DisplayName("Should delete monster and redirect")
+    @Test
+    void deleteMonster() throws Exception {
+
+        mockMvc.perform(post("/monsters/delete/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/monsters/list"));
+
+        verify(monsterService).deleteMonster(1L);
     }
 
 }
