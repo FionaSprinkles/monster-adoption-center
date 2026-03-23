@@ -8,52 +8,84 @@
 <head>
     <title>Monster Adoption Center</title>
     <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="/style/titles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mystery+Quest&display=swap" rel="stylesheet">
 </head>
 <body>
+
 <div class="container">
-<h1>Available monsters for adoption</h1>
+
+    <div class="title-frame">
+        <h1 class="page-title">Welcome to the</h1>
+
+        <h1 class="page-title main-title">
+            Monster Adoption Center
+        </h1>
+
+    </div>
+
+    <h2 class="page-title page-subtitle">
+        Available monsters for adoption
+    </h2>
     <div class="top-bar">
         <a class="button" href="/monsters/new">Register new</a>
     </div>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Image</th>
-        <th>Species</th>
-        <th>Danger Level</th>
-        <th>Tamed Level</th>
-        <th>Status</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    @for(var monster : monsters)
-        <tr>
-            <td>${monster.getName()}</td>
+    <div class="monster-grid">
 
-            <td>
-                @if(monster.getImageUrl() != null)
-                    <img src="${monster.getImageUrl()}"
-                         alt="${monster.getName()}"
-                         style="width: 50px; height: 50px; border-radius: 50%;">
-                @endif
-            </td>
-            <td>${monster.getSpecies()}</td>
-            <td>${monster.getDangerLevel()}</td>
-            <td>${monster.getTamedLevel()}</td>
-            <td>${monster.isAdopted() ? "Adopted" : "Available"}</td>
-            <td>
-                <a href="/monsters/edit/${monster.getId()}">Edit</a>
-                <form action="/monsters/delete/${monster.getId()}" method="post" style="display:inline;">
-                    <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
-                </form>
-            </td>
-        </tr>
-    @endfor
-    </tbody>
-</table>
+        @for(var monster : monsters)
+            <div class="monster-card">
+
+                <div class="monster-image-wrapper">
+                    @if(monster.getImageUrl() != null)
+                        <img class="monster-img"
+                             src="${monster.getImageUrl()}"
+                             alt="${monster.getName()}">
+                    @else
+                        <div class="monster-img placeholder">
+                            No image
+                        </div>
+                    @endif
+
+                    <div class="status-badge ${monster.isAdopted() ? "adopted" : "available"}">
+                        ${monster.isAdopted() ? "Adopted" : "Available"}
+                    </div>
+                </div>
+
+                <div class="monster-content">
+                    <h3>${monster.getName()}</h3>
+
+                    <p class="monster-species">
+                        ${monster.getSpecies()}
+                    </p>
+
+                    <div class="monster-levels">
+                        <span>Danger: ${monster.getDangerLevel()}</span>
+                        <span>Tamed: ${monster.getTamedLevel()}</span>
+                    </div>
+
+                    <div class="monster-actions">
+                        <a class="edit-btn"
+                           href="/monsters/edit/${monster.getId()}">
+                            Edit
+                        </a>
+
+                        <form action="/monsters/delete/${monster.getId()}"
+                              method="post">
+                            <button type="submit"
+                                    onclick="return confirm('Delete ${monster.getName()}?')">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        @endfor
+
+    </div>
+
 </div>
+
 </body>
 </html>

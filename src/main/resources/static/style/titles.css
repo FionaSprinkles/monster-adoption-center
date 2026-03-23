@@ -1,0 +1,42 @@
+/* Base title */
+.page-title {
+    font-family: 'Mystery Quest', cursive;
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/* Main big title */
+.main-title {
+    font-size: 52px;
+    color: #38d27a;
+
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000;
+}
+
+/* Small title */
+.page-subtitle {
+    font-size: 22px;
+    color: #9fe6c2;
+    margin-top: 5px;
+}
+
+.title-frame {
+    position: relative;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    text-align: center;
+
+    border: 2px solid #2ecc71;
+    border-radius: 20px;
+
+    background: #12151b;
+
+    box-shadow:
+            0 0 25px rgba(46,204,113,0.15),
+            inset 0 0 20px rgba(46,204,113,0.05);
+}

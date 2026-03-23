@@ -9,9 +9,12 @@
     <title>Edit monster</title>
     <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="/style/new-style.css">
+    <link rel="stylesheet" href="/style/titles.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Mystery+Quest&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Update information about ${updateMonsterDTO.getName()}</h1>
+<h1 class="page-title main-title">Update information about ${updateMonsterDTO.getName()}</h1>
 
 <form action="/monsters/edit/${id}" method="post">
     <div>
