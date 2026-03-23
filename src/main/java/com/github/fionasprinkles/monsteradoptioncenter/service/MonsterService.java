@@ -51,7 +51,7 @@ public class MonsterService {
     }
 
     public MonsterDTO findById(Long id) {
-        Monster monster = monsterRepository.findById(id).orElseThrow(() -> new RuntimeException("Monster not found"));
+        Monster monster = monsterRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Monster not found"));
 
         return monsterMapper.toDTO(monster);
 
