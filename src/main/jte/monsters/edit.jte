@@ -1,3 +1,4 @@
+@import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO
 @import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO
 @param Long id
 @param UpdateMonsterDTO updateMonsterDTO
@@ -33,7 +34,11 @@
     </div>
     <div>
         <label>Status:</label>
-        <input type="checkbox" name="adopted" value="true" ${updateMonsterDTO.isAdopted() ? "checked" : ""}> Markera som adopterad
+        <input type="checkbox"
+               name="adopted"
+               value="true"
+               checked="${updateMonsterDTO.isAdopted()}">
+
     </div>
 
     <button type="submit">Update information</button>
