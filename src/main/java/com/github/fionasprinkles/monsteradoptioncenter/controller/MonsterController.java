@@ -1,5 +1,6 @@
 package com.github.fionasprinkles.monsteradoptioncenter.controller;
 
+import com.github.fionasprinkles.monsteradoptioncenter.MonsterMapper;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.CreateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO;
@@ -16,9 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class MonsterController {
 
     private final MonsterService monsterService;
+    private final MonsterMapper monsterMapper;
 
-    public MonsterController(MonsterService monsterService) {
+    public MonsterController(MonsterService monsterService, MonsterMapper monsterMapper) {
         this.monsterService = monsterService;
+        this.monsterMapper = monsterMapper;
     }
 
 
@@ -50,7 +53,12 @@ public class MonsterController {
     @GetMapping("/edit/{id}")
     public String editMonsterForm(@PathVariable Long id, Model model) {
         MonsterDTO monster = monsterService.findById(id);
-        model.addAttribute("updateMonsterDTO", monster);
+
+        UpdateMonsterDTO dto = monsterMapper.toUpdateFormDTO(monster);
+
+        model.addAttribute("updateMonsterDTO", dto);
+        model.addAttribute("id", id);
+
         return "monsters/edit";
     }
 
