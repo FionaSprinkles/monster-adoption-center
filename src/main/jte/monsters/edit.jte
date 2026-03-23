@@ -27,6 +27,12 @@
         <textarea name="description">${updateMonsterDTO.getDescription()}</textarea>
     </div>
     <div>
+        <label>Arrival Date:</label>
+        <input type="date"
+               name="arrivalDate"
+               value="${updateMonsterDTO.getArrivalDate() != null ? updateMonsterDTO.getArrivalDate().toString() : ""}">
+    </div>
+    <div>
         <label>Danger Level:</label>
         <input type="number" name="dangerLevel" value="${updateMonsterDTO.getDangerLevel()}">
     </div>
