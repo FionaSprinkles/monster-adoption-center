@@ -7,6 +7,8 @@
 <html lang="en">
 <head>
     <title>Edit monster</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="/style/new-style.css">
 </head>
 <body>
 <h1>Update information about ${updateMonsterDTO.getName()}</h1>
