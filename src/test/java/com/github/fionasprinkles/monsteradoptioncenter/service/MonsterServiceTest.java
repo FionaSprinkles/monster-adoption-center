@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 
 
 /**
@@ -101,12 +103,15 @@ class MonsterServiceTest {
     void createMonster() {
 
         CreateMonsterDTO createMonsterDTO = new CreateMonsterDTO();
+        MultipartFile image = mock(MultipartFile.class);
+
+        when(image.isEmpty()).thenReturn(true);
 
         when(monsterMapper.toEntity(createMonsterDTO)).thenReturn(monster);
         when(monsterRepository.save(monster)).thenReturn(monster);
         when(monsterMapper.toDTO(monster)).thenReturn(monsterDTO);
 
-        MonsterDTO result = monsterService.createMonster(createMonsterDTO);
+        MonsterDTO result = monsterService.createMonster(createMonsterDTO, image);
 
         verify(monsterMapper).toEntity(createMonsterDTO);
         verify(monsterRepository).save(monster);
@@ -128,4 +133,8 @@ class MonsterServiceTest {
 
         assertThat(result).isEqualTo(monsterDTO);
     }
+
+    //update
+
+    //delete
 }
