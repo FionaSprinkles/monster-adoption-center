@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -13,8 +14,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -47,6 +47,34 @@ void listMonsters() throws Exception {
         mockMvc.perform(get("/monsters/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("monsters/new"));
+    }
+
+    @DisplayName("Should create monster and redirect")
+    @Test
+    void createMonster() throws Exception {
+
+        MockMultipartFile image =
+                new MockMultipartFile(
+                        "image",
+                        "test.jpg",
+                        "image/jpeg",
+                        "fake-image".getBytes()
+                );
+
+        mockMvc.perform(multipart("/monsters")
+                        .param("name", "Fluffy")
+                        .file(image)
+                        .param("species", "Dragon")
+                        .param("description", "Cute")
+                        .param("arrivalDate", "2026-01-01")
+                        .param("dangerLevel", "3")
+                        .param("tamedLevel", "8"))
+                .andExpect(status().is3xxRedirection());
+
+        verify(monsterService).createMonster(
+                org.mockito.ArgumentMatchers.any(),
+                org.mockito.ArgumentMatchers.any()
+        );
     }
 
     @DisplayName("Should show edit page")
