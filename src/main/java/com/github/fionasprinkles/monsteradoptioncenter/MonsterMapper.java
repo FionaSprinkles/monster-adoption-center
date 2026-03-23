@@ -11,7 +11,10 @@ import org.springframework.stereotype.Component;
 public class MonsterMapper {
 
 
-
+    /**
+     * Converts CreateMonsterDTO to Monster entity.
+     * Used when creating a new monster from form input.
+     */
     public Monster toEntity(CreateMonsterDTO create) {
         Monster monster = new Monster();
         monster.setName(create.getName());
@@ -26,6 +29,10 @@ public class MonsterMapper {
 
     }
 
+    /**
+     * Converts Monster entity to MonsterDTO.
+     * Used when sending data to the UI (list page).
+     */
     public MonsterDTO toDTO(Monster monster) {
         MonsterDTO monsterDTO = new MonsterDTO();
         monsterDTO.setId(monster.getId());
@@ -41,6 +48,10 @@ public class MonsterMapper {
 
     }
 
+    /**
+     * Updates an existing Monster entity using UpdateMonsterDTO.
+     * Used when editing a monster.
+     */
     public void toUpdateDTO(Monster monster, UpdateMonsterDTO update) {
 
         monster.setName(update.getName());
@@ -52,6 +63,25 @@ public class MonsterMapper {
         monster.setTamedLevel(update.getTamedLevel());
         monster.setAdopted(update.isAdopted());
 
+    }
+
+    /**
+     * Converts MonsterDTO to UpdateMonsterDTO.
+     * Used to pre-fill edit form with existing values.
+     */
+    public UpdateMonsterDTO toUpdateFormDTO(MonsterDTO monster) {
+        UpdateMonsterDTO dto = new UpdateMonsterDTO();
+
+        dto.setName(monster.getName());
+        dto.setImageUrl(monster.getImageUrl());
+        dto.setSpecies(monster.getSpecies());
+        dto.setDescription(monster.getDescription());
+        dto.setArrivalDate(monster.getArrivalDate());
+        dto.setDangerLevel(monster.getDangerLevel());
+        dto.setTamedLevel(monster.getTamedLevel());
+        dto.setAdopted(monster.isAdopted());
+
+        return dto;
     }
 
 }
