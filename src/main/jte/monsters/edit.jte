@@ -7,6 +7,8 @@
 <html lang="en">
 <head>
     <title>Edit monster</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel="stylesheet" href="/style/new-style.css">
 </head>
 <body>
 <h1>Update information about ${updateMonsterDTO.getName()}</h1>
@@ -23,6 +25,12 @@
     <div>
         <label>Description:</label>
         <textarea name="description">${updateMonsterDTO.getDescription()}</textarea>
+    </div>
+    <div>
+        <label>Arrival Date:</label>
+        <input type="date"
+               name="arrivalDate"
+               value="${updateMonsterDTO.getArrivalDate() != null ? updateMonsterDTO.getArrivalDate().toString() : ""}">
     </div>
     <div>
         <label>Danger Level:</label>
