@@ -47,4 +47,15 @@ void listMonsters() throws Exception {
                 .andExpect(view().name("monsters/new"));
     }
 
+    @DisplayName("Should show edit page")
+    @Test
+    void showEditForm() throws Exception {
+
+        when(monsterService.findById(1L)).thenReturn(new MonsterDTO());
+
+        mockMvc.perform(get("/monsters/edit/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("monsters/edit"));
+    }
+
 }
