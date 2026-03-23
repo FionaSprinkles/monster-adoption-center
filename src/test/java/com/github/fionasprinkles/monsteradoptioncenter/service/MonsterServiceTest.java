@@ -171,5 +171,17 @@ class MonsterServiceTest {
         assertThat(result).isEqualTo(monsterDTO);
     }
 
-    //delete
+    /**
+     * Should delete monster when id exists.
+     */
+    @DisplayName("Should delete monster")
+    @Test
+    void deleteMonster() {
+
+        when(monsterRepository.existsById(1L)).thenReturn(true);
+
+        monsterService.deleteMonster(1L);
+
+        verify(monsterRepository).deleteById(1L);
+    }
 }
