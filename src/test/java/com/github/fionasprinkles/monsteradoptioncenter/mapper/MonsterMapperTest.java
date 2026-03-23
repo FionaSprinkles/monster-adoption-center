@@ -47,6 +47,13 @@ class MonsterMapperTest {
     @DisplayName("Should map Monster to MonsterDTO")
     @Test
     void toDTO() {
+
+    }
+
+
+    @DisplayName("Should update monster from UpdateMonsterDTO")
+    @Test
+    void toUpdateDTO() {
         Monster monster = new Monster();
         monster.setName("Old");
 
@@ -66,10 +73,6 @@ class MonsterMapperTest {
         assertThat(monster.getArrivalDate()).isEqualTo(LocalDate.of(2026, 2, 2));
         assertThat(monster.getDangerLevel()).isEqualTo(2);
         assertThat(monster.getTamedLevel()).isEqualTo(9);
-    }
 
-    @DisplayName("Should update monster from UpdateMonsterDTO")
-    @Test
-    void toUpdateDTO() {
     }
 }
