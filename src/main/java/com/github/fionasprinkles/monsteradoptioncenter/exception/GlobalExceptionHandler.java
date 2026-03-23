@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(ResourceNotFoundExceptionHandler.class)
-    public String handleNotFound(ResourceNotFoundExceptionHandler ex, Model model) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleNotFound(ResourceNotFoundException ex, Model model) {
 
-        model.addAttribute("error", ex.getMessage());
+        model.addAttribute("title", "404 - Not found");
+        model.addAttribute("message", "The monster you tried to access does not exist.");
 
-        return "error/not-found.jte";
+        return "error/not-found";
     }
 }
