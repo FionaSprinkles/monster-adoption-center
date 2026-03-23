@@ -5,6 +5,7 @@ import com.github.fionasprinkles.monsteradoptioncenter.dto.CreateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.entity.Monster;
+import com.github.fionasprinkles.monsteradoptioncenter.exception.ResourceNotFoundExceptionHandler;
 import com.github.fionasprinkles.monsteradoptioncenter.repository.MonsterRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,7 +62,7 @@ public class MonsterService {
     // The id is provided separately so UpdateMonsterDTO does not need an id field.
     public MonsterDTO updateMonster(Long id, UpdateMonsterDTO updateDTO) {
         Monster monster = monsterRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Monster not found"));
+                .orElseThrow(() -> new ResourceNotFoundExceptionHandler("Monster not found"));
 
         monsterMapper.toUpdateDTO(monster, updateDTO);
 
@@ -73,7 +74,7 @@ public class MonsterService {
 
     public void deleteMonster(Long id) {
         if (!monsterRepository.existsById(id)) {
-            throw new RuntimeException("Monster with id " + id + " not found");
+            throw new ResourceNotFoundExceptionHandler("Monster with id " + id + " not found");
         }
         monsterRepository.deleteById(id);
     }
