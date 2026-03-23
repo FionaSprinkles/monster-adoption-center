@@ -4,6 +4,7 @@ import com.github.fionasprinkles.monsteradoptioncenter.MonsterMapper;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.CreateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.entity.Monster;
+import com.github.fionasprinkles.monsteradoptioncenter.exception.ResourceNotFoundException;
 import com.github.fionasprinkles.monsteradoptioncenter.repository.MonsterRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.mock;
@@ -132,6 +134,20 @@ class MonsterServiceTest {
         verify(monsterMapper).toDTO(monster);
 
         assertThat(result).isEqualTo(monsterDTO);
+    }
+
+    /**
+     * Should throw exception when monster is not found.
+     */
+    @DisplayName("Should throw when monster does not exsist")
+    @Test
+    void findByIdNotFound() {
+
+        when(monsterRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> monsterService.findById(1L))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("Monster not found");
     }
 
     //update
