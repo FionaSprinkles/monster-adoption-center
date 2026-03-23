@@ -123,6 +123,10 @@ class MonsterServiceTest {
         assertThat(result).isEqualTo(monsterDTO);
     }
 
+    /**
+     * Should return monster when id exists.
+     */
+    @DisplayName("Should return monster by id")
     @Test
     void findById() {
 
