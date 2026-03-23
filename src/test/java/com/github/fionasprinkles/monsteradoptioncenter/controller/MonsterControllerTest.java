@@ -26,7 +26,7 @@ class MonsterControllerTest {
     private MonsterService monsterService;
 
 
-@DisplayName("Should return monster list page")
+    @DisplayName("Should return monster list page")
 @Test
 void listMonsters() throws Exception {
 
@@ -37,5 +37,14 @@ void listMonsters() throws Exception {
             .andExpect(view().name("monsters/list"))
             .andExpect(model().attributeExists("monsters"));
 }
+
+    @DisplayName("Should show create monster page")
+    @Test
+    void showCreateForm() throws Exception {
+
+        mockMvc.perform(get("/monsters/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("monsters/new"));
+    }
 
 }
