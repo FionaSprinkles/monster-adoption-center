@@ -46,7 +46,7 @@ public class MonsterController {
             return "monsters/new";
         } else {
             monsterService.createMonster(createMonsterDTO, image);
-        }return "redirect:/monsters/list";
+        }return "redirect:/monsters";
     }
 
     //Visa formulär för uppdatering
@@ -69,13 +69,13 @@ public class MonsterController {
             return "monsters/edit";
         }else {
             monsterService.updateMonster(id, updateMonsterDTO);
-        }return "redirect:/monsters/list";
+        }return "redirect:/monsters";
     }
 
     //Ta bort objekt
     @PostMapping("/delete/{id}")
     public String deleteMonster(@PathVariable Long id) {
         monsterService.deleteMonster(id);
-        return "redirect:/monsters/list";
+        return "redirect:/monsters";
     }
 }
