@@ -2,6 +2,7 @@ package com.github.fionasprinkles.monsteradoptioncenter.mapper;
 
 import com.github.fionasprinkles.monsteradoptioncenter.MonsterMapper;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.CreateMonsterDTO;
+import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.entity.Monster;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,11 +42,30 @@ class MonsterMapperTest {
         assertThat(result.getDangerLevel()).isEqualTo(5);
         assertThat(result.getTamedLevel()).isEqualTo(7);
     }
-    
+
 
     @DisplayName("Should map Monster to MonsterDTO")
     @Test
     void toDTO() {
+        Monster monster = new Monster();
+        monster.setName("Old");
+
+        UpdateMonsterDTO dto = new UpdateMonsterDTO();
+        dto.setName("Updated");
+        dto.setSpecies("Dragon");
+        dto.setDescription("Updated dragon");
+        dto.setArrivalDate(LocalDate.of(2026, 2, 2));
+        dto.setDangerLevel(2);
+        dto.setTamedLevel(9);
+
+        monsterMapper.toUpdateDTO(monster, dto);
+
+        assertThat(monster.getName()).isEqualTo("Updated");
+        assertThat(monster.getSpecies()).isEqualTo("Dragon");
+        assertThat(monster.getDescription()).isEqualTo("Updated dragon");
+        assertThat(monster.getArrivalDate()).isEqualTo(LocalDate.of(2026, 2, 2));
+        assertThat(monster.getDangerLevel()).isEqualTo(2);
+        assertThat(monster.getTamedLevel()).isEqualTo(9);
     }
 
     @DisplayName("Should update monster from UpdateMonsterDTO")
