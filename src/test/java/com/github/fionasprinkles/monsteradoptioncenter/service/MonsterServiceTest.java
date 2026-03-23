@@ -3,6 +3,7 @@ package com.github.fionasprinkles.monsteradoptioncenter.service;
 import com.github.fionasprinkles.monsteradoptioncenter.MonsterMapper;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.CreateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
+import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.entity.Monster;
 import com.github.fionasprinkles.monsteradoptioncenter.exception.ResourceNotFoundException;
 import com.github.fionasprinkles.monsteradoptioncenter.repository.MonsterRepository;
@@ -150,7 +151,25 @@ class MonsterServiceTest {
                 .hasMessage("Monster not found");
     }
 
-    //update
+    /**
+     * Should update an existing monster.
+     */
+    @DisplayName("Should update monster")
+    @Test
+    void updateMonster() {
+
+        UpdateMonsterDTO updateDTO = new UpdateMonsterDTO();
+
+        when(monsterRepository.findById(1L)).thenReturn(Optional.of(monster));
+        when(monsterMapper.toDTO(monster)).thenReturn(monsterDTO);
+
+        MonsterDTO result = monsterService.updateMonster(1L, updateDTO);
+
+        verify(monsterMapper).toUpdateDTO(monster, updateDTO);
+        verify(monsterRepository).save(monster);
+
+        assertThat(result).isEqualTo(monsterDTO);
+    }
 
     //delete
 }
