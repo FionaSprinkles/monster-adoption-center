@@ -33,16 +33,17 @@ public class MonsterController {
 
 
 
-    //Start page & Pagination
+    //Start page & Pagination & Search
     @GetMapping
     public String listAllMonsters(
             @RequestParam(defaultValue = "0") int page,
+            @RequestParam(required = false) String search,
             Model model) {
 
         int size = 6;
 
         List<MonsterDTO> monsters =
-                monsterService.findPaginated(page, size);
+                monsterService.findPaginated(page, size, search);
 
         model.addAttribute("monsters", monsters);
         model.addAttribute("currentPage", page);

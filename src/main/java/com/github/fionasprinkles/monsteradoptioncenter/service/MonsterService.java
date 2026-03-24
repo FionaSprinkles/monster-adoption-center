@@ -80,8 +80,10 @@ public class MonsterService {
     }
 
     //Page method
-    public List<MonsterDTO> findPaginated(int page, int size) {
+    public List<MonsterDTO> findPaginated(int page, int size, String search) {
         List<Monster> monsters = monsterRepository.findAll();
+
+        monsters = search(monsters, search);
 
         int start = page * size;
         int end = Math.min(start + size, monsters.size());
@@ -89,6 +91,17 @@ public class MonsterService {
         return monsters.subList(start, end)
                 .stream()
                 .map(monsterMapper::toDTO)
+                .toList();
+    }
+
+    private List<Monster> search(List<Monster> monsters, String search) {
+        if (search == null || search.isBlank()) {
+            return monsters;
+        }
+
+        return monsters.stream()
+                .filter(m -> m.getName().toLowerCase()
+                        .contains(search.toLowerCase()))
                 .toList();
     }
 
