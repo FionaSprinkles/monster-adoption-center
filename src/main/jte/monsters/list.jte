@@ -2,6 +2,7 @@
 @import java.util.List
 
 @param List<MonsterDTO> monsters
+@param int currentPage
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,6 +87,12 @@
 
     </div>
 
+
+</div>
+<div class="pagination">
+    <a href="/monsters?page=${currentPage + 1}">
+        Next →
+    </a>
 </div>
 
 </body>

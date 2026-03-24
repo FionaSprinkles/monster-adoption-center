@@ -79,4 +79,17 @@ public class MonsterService {
         monsterRepository.deleteById(id);
     }
 
+    //Page method
+    public List<MonsterDTO> findPaginated(int page, int size) {
+        List<Monster> monsters = monsterRepository.findAll();
+
+        int start = page * size;
+        int end = Math.min(start + size, monsters.size());
+
+        return monsters.subList(start, end)
+                .stream()
+                .map(monsterMapper::toDTO)
+                .toList();
+    }
+
 }

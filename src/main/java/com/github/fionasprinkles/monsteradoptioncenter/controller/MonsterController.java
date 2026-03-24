@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/monsters")
 public class MonsterController {
@@ -30,10 +32,21 @@ public class MonsterController {
     }
 
 
-    //Lista objekt
+
+    //Start page & Pagination
     @GetMapping
-    public String listAllMonsters(Model model) {
-        model.addAttribute("monsters", monsterService.findAll());
+    public String listAllMonsters(
+            @RequestParam(defaultValue = "0") int page,
+            Model model) {
+
+        int size = 6;
+
+        List<MonsterDTO> monsters =
+                monsterService.findPaginated(page, size);
+
+        model.addAttribute("monsters", monsters);
+        model.addAttribute("currentPage", page);
+
         return VIEW_LIST;
     }
 
