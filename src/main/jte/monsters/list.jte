@@ -9,6 +9,7 @@
     <title>Monster Adoption Center</title>
     <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="/style/titles.css">
+    <link rel="stylesheet" href="/style/monster-card.css">
     <link href="https://fonts.googleapis.com/css2?family=Mystery+Quest&display=swap" rel="stylesheet">
 </head>
 <body>
