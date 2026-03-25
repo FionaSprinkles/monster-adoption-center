@@ -36,12 +36,20 @@
                value="${updateMonsterDTO.getArrivalDate() != null ? updateMonsterDTO.getArrivalDate().toString() : ""}">
     </div>
     <div>
-        <label>Danger Level:</label>
-        <input type="number" name="dangerLevel" value="${updateMonsterDTO.getDangerLevel()}">
+        <label>Danger Level</label>
+        <input type="number"
+               name="dangerLevel"
+               min="0"
+               max="10"
+               value="${updateMonsterDTO.getDangerLevel()}">
     </div>
     <div>
         <label>Tamed Level</label>
-        <input type="number" name="tamedLevel" value="${updateMonsterDTO.getTamedLevel()}">
+        <input type="number"
+               name="dangerLevel"
+               min="0"
+               max="10"
+               value="${updateMonsterDTO.getTamedLevel()}">
     </div>
     <div>
         <label>Status:</label>

@@ -32,8 +32,13 @@
         Available monsters for adoption
     </h2>
     <div class="top-bar">
+        <form method="get" action="/monsters">
+            <input name="search" placeholder="Search monsters">
+            <button type="submit">Search</button>
+        </form>
         <a class="button" href="/monsters/new">Register new</a>
     </div>
+
 
     <div class="monster-grid">
 

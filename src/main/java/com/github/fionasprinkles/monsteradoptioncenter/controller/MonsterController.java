@@ -36,17 +36,20 @@ public class MonsterController {
 
 
 
-    //Start page & Pagination
+    //Start page & Pagination & Search
     @GetMapping
     public String listAllMonsters(
-            @PageableDefault(size = 6)Pageable pageable, Model model) {
+            @PageableDefault(size = 6)Pageable pageable,
+            @RequestParam(required = false) String search,
+            Model model) {
 
         Page<MonsterDTO> monsters =
-                monsterService.findPaginated(pageable);
+                monsterService.findPaginated(pageable, search);
 
         model.addAttribute("monsters", monsters);
         model.addAttribute("currentPage", monsters.getNumber());
         model.addAttribute("totalPages", monsters.getTotalPages());
+        model.addAttribute("search" , search);
 
         return VIEW_LIST;
     }

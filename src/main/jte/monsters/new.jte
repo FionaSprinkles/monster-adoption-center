@@ -58,14 +58,22 @@
         <label>Ankomstdatum:</label>
         <input type="date" name="arrivalDate" value="${createMonsterDTO.getArrivalDate() != null ? createMonsterDTO.getArrivalDate().toString() : ""}">
     </div>
-    <div>
-        <label>Farlighetsgrad (0-10):</label>
-        <input type="number" name="dangerLevel" min="0" max="10" value="${createMonsterDTO.getDangerLevel()}">
-    </div>
-    <div>
-        <label>Tämjningsgrad (0-10):</label>
-        <input type="number" name="tamedLevel" min="0" max="10" value="${createMonsterDTO.getTamedLevel()}">
-    </div>
+        <div>
+            <label>Danger Level</label>
+            <input type="number"
+                   name="dangerLevel"
+                   min="0"
+                   max="10"
+                   value="${createMonsterDTO.getDangerLevel()}">
+        </div>
+        <div>
+            <label>Tamed Level</label>
+            <input type="number"
+                   name="dangerLevel"
+                   min="0"
+                   max="10"
+                   value="${createMonsterDTO.getTamedLevel()}">
+        </div>
 
     <button type="submit">Spara monster</button>
 </form>

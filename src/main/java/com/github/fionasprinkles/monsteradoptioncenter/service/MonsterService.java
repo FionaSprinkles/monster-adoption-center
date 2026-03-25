@@ -89,4 +89,15 @@ public class MonsterService {
                 .map(monsterMapper::toDTO);
     }
 
+    private List<Monster> search(List<Monster> monsters, String search) {
+        if (search == null || search.isBlank()) {
+            return monsters;
+        }
+
+        return monsters.stream()
+                .filter(m -> m.getName().toLowerCase()
+                        .contains(search.toLowerCase()))
+                .toList();
+    }
+
 }
