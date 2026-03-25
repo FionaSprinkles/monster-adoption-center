@@ -7,6 +7,8 @@ import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.entity.Monster;
 import com.github.fionasprinkles.monsteradoptioncenter.exception.ResourceNotFoundException;
 import com.github.fionasprinkles.monsteradoptioncenter.repository.MonsterRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -80,29 +82,18 @@ public class MonsterService {
     }
 
     //Page method
-    public List<MonsterDTO> findPaginated(int page, int size, String search) {
-        List<Monster> monsters = monsterRepository.findAll();
+    public Page<MonsterDTO> findPaginated(Pageable pageable, String search) {
 
-        monsters = search(monsters, search);
+        Page<Monster> page;
 
-        int start = page * size;
-        int end = Math.min(start + size, monsters.size());
-
-        return monsters.subList(start, end)
-                .stream()
-                .map(monsterMapper::toDTO)
-                .toList();
-    }
-
-    private List<Monster> search(List<Monster> monsters, String search) {
         if (search == null || search.isBlank()) {
-            return monsters;
+            page = monsterRepository.findAll(pageable);
+        } else {
+            page = monsterRepository
+                    .findByNameContainingIgnoreCase(search, pageable);
         }
 
-        return monsters.stream()
-                .filter(m -> m.getName().toLowerCase()
-                        .contains(search.toLowerCase()))
-                .toList();
+        return page.map(monsterMapper::toDTO);
     }
 
 }
