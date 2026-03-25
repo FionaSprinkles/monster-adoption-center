@@ -82,22 +82,18 @@ public class MonsterService {
     }
 
     //Page method
-    public Page<MonsterDTO> findPaginated(Pageable pageable) {
+    public Page<MonsterDTO> findPaginated(Pageable pageable, String search) {
 
-        return monsterRepository
-                .findAll(pageable)
-                .map(monsterMapper::toDTO);
-    }
+        Page<Monster> page;
 
-    private List<Monster> search(List<Monster> monsters, String search) {
         if (search == null || search.isBlank()) {
-            return monsters;
+            page = monsterRepository.findAll(pageable);
+        } else {
+            page = monsterRepository
+                    .findByNameContainingIgnoreCase(search, pageable);
         }
 
-        return monsters.stream()
-                .filter(m -> m.getName().toLowerCase()
-                        .contains(search.toLowerCase()))
-                .toList();
+        return page.map(monsterMapper::toDTO);
     }
 
 }
