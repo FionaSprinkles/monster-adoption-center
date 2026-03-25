@@ -1,8 +1,10 @@
 @import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO
 @import java.util.List
 
-@param List<MonsterDTO> monsters
+@import org.springframework.data.domain.Page
+@param Page<MonsterDTO> monsters
 @param int currentPage
+@param int totalPages
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +37,7 @@
 
     <div class="monster-grid">
 
-        @for(var monster : monsters)
+        @for(var monster : monsters.getContent())
             <div class="monster-card">
 
                 <div class="monster-image-wrapper">
@@ -90,9 +92,11 @@
 
 </div>
 <div class="pagination">
-    <a href="/monsters?page=${currentPage + 1}">
-        Next →
-    </a>
+    @if(currentPage < totalPages - 1)
+        <a href="/monsters?page=${currentPage + 1}">
+            Next →
+        </a>
+    @endif
 </div>
 
 </body>

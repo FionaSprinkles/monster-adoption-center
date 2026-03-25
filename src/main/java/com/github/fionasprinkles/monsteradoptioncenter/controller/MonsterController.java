@@ -6,6 +6,9 @@ import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.service.MonsterService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,16 +39,14 @@ public class MonsterController {
     //Start page & Pagination
     @GetMapping
     public String listAllMonsters(
-            @RequestParam(defaultValue = "0") int page,
-            Model model) {
+            @PageableDefault(size = 6)Pageable pageable, Model model) {
 
-        int size = 6;
-
-        List<MonsterDTO> monsters =
-                monsterService.findPaginated(page, size);
+        Page<MonsterDTO> monsters =
+                monsterService.findPaginated(pageable);
 
         model.addAttribute("monsters", monsters);
-        model.addAttribute("currentPage", page);
+        model.addAttribute("currentPage", monsters.getNumber());
+        model.addAttribute("totalPages", monsters.getTotalPages());
 
         return VIEW_LIST;
     }
