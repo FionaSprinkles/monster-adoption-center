@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Data
 public class MonsterDTO {
 
-    @GeneratedValue
     private Long id;
 
     @NotBlank

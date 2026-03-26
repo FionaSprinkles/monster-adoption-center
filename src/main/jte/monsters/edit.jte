@@ -46,7 +46,7 @@
     <div>
         <label>Tamed Level</label>
         <input type="number"
-               name="dangerLevel"
+               name="tamedLevel"
                min="0"
                max="10"
                value="${updateMonsterDTO.getTamedLevel()}">
