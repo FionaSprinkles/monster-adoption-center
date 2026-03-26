@@ -9,8 +9,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public String handleNotFound(ResourceNotFoundException ex, Model model) {
 
-        model.addAttribute("title", "404 - Not found");
-        model.addAttribute("message", "The monster you tried to access does not exist.");
+        model.addAttribute("errorTitle", "404 - Not found");
+        model.addAttribute("errorMessage", "The monster you tried to access does not exist.");
 
         return "error/not-found";
     }
