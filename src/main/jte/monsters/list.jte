@@ -5,6 +5,7 @@
 @param Page<MonsterDTO> monsters
 @param int currentPage
 @param int totalPages
+@param String search
 
 <!DOCTYPE html>
 <html lang="en">
@@ -97,8 +98,15 @@
 
 </div>
 <div class="pagination">
+
+    @if(currentPage > 0)
+        <a href="/monsters?page=${currentPage - 1}&search=${search != null ? search : ""}">
+            ← Previous
+        </a>
+    @endif
+
     @if(currentPage < totalPages - 1)
-        <a href="/monsters?page=${currentPage + 1}">
+        <a href="/monsters?page=${currentPage + 1}&search=${search != null ? search : ""}">
             Next →
         </a>
     @endif
