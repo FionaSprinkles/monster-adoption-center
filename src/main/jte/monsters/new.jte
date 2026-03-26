@@ -5,21 +5,21 @@
 @param String error
 
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
-    <title>Registrera nytt monster</title>
+    <title>Register new</title>
     <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="/style/new-style.css">
     <link rel="stylesheet" href="/input-error.css">
 </head>
 <body>
 <div class="container">
-<h1>Lägg till ett nytt monster i centret</h1>
+<h1>Add new monster to the center</h1>
 
     <form class="monster-form" action="/monsters" method="post" enctype="multipart/form-data">
     <div>
         <div class="form-group">
-            <label for="name">Namn</label>
+            <label for="name">Name</label>
 
 
             <input type="text"
@@ -38,7 +38,7 @@
         </div>
     </div>
         <div class="form-group">
-            <label>Välj bild:</label>
+            <label>Add a picture:</label>
             <input type="file" name="image" accept="image/png, image/jpeg">
             @if(error != null)
                 <div class="error-text">
@@ -47,15 +47,15 @@
             @endif
         </div>
     <div>
-        <label>Art:</label>
+        <label>Species:</label>
         <input type="text" name="species" value="${createMonsterDTO.getSpecies()}">
     </div>
     <div>
-        <label>Beskrivning:</label>
+        <label>Description:</label>
         <textarea name="description">${createMonsterDTO.getDescription()}</textarea>
     </div>
     <div>
-        <label>Ankomstdatum:</label>
+        <label>Arrival Date:</label>
         <input type="date" name="arrivalDate" value="${createMonsterDTO.getArrivalDate() != null ? createMonsterDTO.getArrivalDate().toString() : ""}">
     </div>
         <div>
@@ -69,16 +69,16 @@
         <div>
             <label>Tamed Level</label>
             <input type="number"
-                   name="dangerLevel"
+                   name="tamedLevel"
                    min="0"
                    max="10"
                    value="${createMonsterDTO.getTamedLevel()}">
         </div>
 
-    <button type="submit">Spara monster</button>
+    <button type="submit">Save monster</button>
 </form>
 
-<p><a href="/monsters">Tillbaka till listan</a></p>
+<p><a href="/monsters">Go back</a></p>
 </div>
 </body>
 </html>
