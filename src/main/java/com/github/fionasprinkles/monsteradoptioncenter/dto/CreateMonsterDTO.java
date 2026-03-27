@@ -1,9 +1,6 @@
 package com.github.fionasprinkles.monsteradoptioncenter.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -12,20 +9,26 @@ import java.time.LocalDate;
 public class CreateMonsterDTO {
 
     @NotBlank
+    @Size(max = 60)
     private String name;
 
     private String imageUrl;
 
+    @Size(max = 60)
     private String species;
 
+    @Size(max = 1000)
     private String description;
 
     @NotNull
+    @PastOrPresent
     private LocalDate arrivalDate;
 
-    @Min(0)@Max(10)
-    private int dangerLevel;
+    @Min(0)
+    @Max(10)
+    private Integer dangerLevel;
 
-    @Min(0)@Max(10)
-    private int tamedLevel;
+    @Min(0)
+    @Max(10)
+    private Integer tamedLevel;
 }
