@@ -86,8 +86,9 @@ public class MonsterController {
 
     //Uppdatera objekt
     @PostMapping("/edit/{id}")
-    public String editMonster(@PathVariable Long id, @Valid @ModelAttribute UpdateMonsterDTO updateMonsterDTO, BindingResult bindingResult) {
+    public String editMonster(@PathVariable Long id, @Valid @ModelAttribute UpdateMonsterDTO updateMonsterDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("id", id);
             return VIEW_EDIT;
         }else {
             monsterService.updateMonster(id, updateMonsterDTO);
