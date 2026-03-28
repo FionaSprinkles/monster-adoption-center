@@ -1,17 +1,21 @@
 package com.github.fionasprinkles.monsteradoptioncenter.controller;
 
+import com.github.fionasprinkles.monsteradoptioncenter.MonsterMapper;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.service.MonsterService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -27,12 +31,17 @@ class MonsterControllerTest {
     @MockitoBean
     private MonsterService monsterService;
 
+    @MockitoBean
+    private MonsterMapper monsterMapper;
+
 
     @DisplayName("Should return monster list page")
 @Test
 void listMonsters() throws Exception {
 
-    when(monsterService.findAll()).thenReturn(List.of(new MonsterDTO()));
+        Page<MonsterDTO> page = new PageImpl<>(List.of(new MonsterDTO()));
+
+        when(monsterService.findPaginated(any(), any())).thenReturn(page);
 
     mockMvc.perform(get("/monsters"))
             .andExpect(status().isOk())
@@ -72,8 +81,8 @@ void listMonsters() throws Exception {
                 .andExpect(status().is3xxRedirection());
 
         verify(monsterService).createMonster(
-                org.mockito.ArgumentMatchers.any(),
-                org.mockito.ArgumentMatchers.any()
+                any(),
+                any()
         );
     }
 
@@ -94,7 +103,7 @@ void listMonsters() throws Exception {
 
         mockMvc.perform(post("/monsters/delete/1"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/monsters/list"));
+                .andExpect(redirectedUrl("/monsters"));
 
         verify(monsterService).deleteMonster(1L);
     }
