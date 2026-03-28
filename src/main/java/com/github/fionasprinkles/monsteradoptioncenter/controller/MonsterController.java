@@ -63,8 +63,10 @@ public class MonsterController {
 
     //Skapa objekt
     @PostMapping
-    public String newMonster(@Valid @ModelAttribute CreateMonsterDTO createMonsterDTO, BindingResult bindingResult, @RequestParam("image") MultipartFile image) {
+    public String newMonster(@Valid @ModelAttribute CreateMonsterDTO createMonsterDTO, BindingResult bindingResult, @RequestParam("image") MultipartFile image, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("createMonsterDTO", createMonsterDTO);
+            model.addAttribute("bindingResult", bindingResult);
             return VIEW_NEW;
         } else {
             monsterService.createMonster(createMonsterDTO, image);
@@ -88,6 +90,8 @@ public class MonsterController {
     @PostMapping("/edit/{id}")
     public String editMonster(@PathVariable Long id, @Valid @ModelAttribute UpdateMonsterDTO updateMonsterDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("updateMonsterDTO", updateMonsterDTO);
+            model.addAttribute("bindingResult", bindingResult);
             model.addAttribute("id", id);
             return VIEW_EDIT;
         }else {

@@ -23,10 +23,13 @@ public class UpdateMonsterDTO {
     @PastOrPresent
     private LocalDate arrivalDate;
 
+    @NotNull
+    @PastOrPresent
     @Min(0)
     @Max(10)
     private int dangerLevel;
 
+    @NotNull
     @Min(0)
     @Max(10)
     private int tamedLevel;

@@ -24,10 +24,12 @@ public class CreateMonsterDTO {
     @PastOrPresent
     private LocalDate arrivalDate;
 
+    @NotNull
     @Min(0)
     @Max(10)
     private Integer dangerLevel;
 
+    @NotNull
     @Min(0)
     @Max(10)
     private Integer tamedLevel;
