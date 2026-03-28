@@ -4,7 +4,12 @@ import com.github.fionasprinkles.monsteradoptioncenter.MonsterMapper;
 import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO;
 import com.github.fionasprinkles.monsteradoptioncenter.service.MonsterService;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.data.domain.Page;
@@ -13,11 +18,13 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Stream;
 
+import static java.time.LocalTime.now;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -83,6 +90,90 @@ void listMonsters() throws Exception {
         verify(monsterService).createMonster(
                 any(),
                 any()
+        );
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("invalidMonsterData")
+    @DisplayName("Should not create monster when validation fails")
+    void createMonsterValidationError(
+            String name,
+            String species,
+            String description,
+            String arrivalDate,
+            String dangerLevel,
+            String tamedLevel
+    ) throws Exception {
+
+        MockMultipartFile image =
+                new MockMultipartFile(
+                        "image",
+                        "test.jpg",
+                        "image/jpeg",
+                        "fake".getBytes()
+                );
+
+        mockMvc.perform(multipart("/monsters")
+                        .file(image)
+                        .param("name", name)
+                        .param("species", species)
+                        .param("description", description)
+                        .param("arrivalDate", arrivalDate)
+                        .param("dangerLevel", dangerLevel)
+                        .param("tamedLevel", tamedLevel))
+                .andExpect(status().isOk())
+                .andExpect(view().name("monsters/new"));
+
+        verify(monsterService, never())
+                .createMonster(any(), any());
+    }
+    private static Stream<Arguments> invalidMonsterData() {
+        return Stream.of(
+
+                Arguments.of(
+                        Named.of("Empty name", ""),
+                        "Dragon",
+                        "Cute",
+                        LocalDate.now().toString(),
+                        "3",
+                        "8"
+                ),
+
+                Arguments.of(
+                        Named.of("Future date", "Fluffy"),
+                        "Dragon",
+                        "Cute",
+                        LocalDate.now().plusDays(1).toString(),
+                        "3",
+                        "8"
+                ),
+
+                Arguments.of(
+                        Named.of("Danger to high", "Fluffy"),
+                        "Dragon",
+                        "Cute",
+                        LocalDate.now().toString(),
+                        "11",
+                        "8"
+                ),
+
+                Arguments.of(
+                        Named.of("Tamed to high", "Fluffy"),
+                        "Dragon",
+                        "Cute",
+                        LocalDate.now().toString(),
+                        "3",
+                        "11"
+                ),
+
+                Arguments.of(
+                        Named.of("Null date", "Fluffy"),
+                        "Dragon",
+                        "Cute",
+                        "",
+                        "3",
+                        "8"
+                )
         );
     }
 
