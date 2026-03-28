@@ -1,5 +1,7 @@
 @import com.github.fionasprinkles.monsteradoptioncenter.dto.MonsterDTO
 @import com.github.fionasprinkles.monsteradoptioncenter.dto.UpdateMonsterDTO
+@import org.springframework.validation.BindingResult
+@param BindingResult bindingResult
 @param Long id
 @param UpdateMonsterDTO updateMonsterDTO
 
@@ -10,6 +12,7 @@
     <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="/style/new-style.css">
     <link rel="stylesheet" href="/style/titles.css">
+    <link rel="stylesheet" href="/input-error.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Mystery+Quest&display=swap" rel="stylesheet">
 </head>
@@ -19,21 +22,51 @@
 <form action="/monsters/edit/${id}" method="post">
     <div>
         <label>Name:</label>
-        <input type="text" name="name" value="${updateMonsterDTO.getName()}">
+        <input type="text"
+               name="name"
+               value="${updateMonsterDTO.getName()}"
+               class="${bindingResult != null && bindingResult.hasFieldErrors("name") ? "input-error" : ""}">
+        @if(bindingResult != null && bindingResult.hasFieldErrors("name"))
+            <div class="error-text">
+                ${bindingResult.getFieldError("name").getDefaultMessage()}
+            </div>
+        @endif
     </div>
     <div>
         <label>Species:</label>
-        <input type="text" name="species" value="${updateMonsterDTO.getSpecies()}">
+        <input type="text"
+               name="species"
+               value="${updateMonsterDTO.getSpecies()}"
+               class="${bindingResult != null && bindingResult.hasFieldErrors("species") ? "input-error" : ""}">
+        @if(bindingResult != null && bindingResult.hasFieldErrors("species"))
+            <div class="error-text">
+                ${bindingResult.getFieldError("species").getDefaultMessage()}
+            </div>
+        @endif
     </div>
     <div>
         <label>Description:</label>
-        <textarea name="description">${updateMonsterDTO.getDescription()}</textarea>
+        <textarea name="description"
+                  class="${bindingResult != null && bindingResult.hasFieldErrors("description") ? "input-error" : ""}">
+${updateMonsterDTO.getDescription()}
+</textarea>
+        @if(bindingResult != null && bindingResult.hasFieldErrors("description"))
+            <div class="error-text">
+                ${bindingResult.getFieldError("description").getDefaultMessage()}
+            </div>
+        @endif
     </div>
     <div>
         <label>Arrival Date:</label>
         <input type="date"
                name="arrivalDate"
-               value="${updateMonsterDTO.getArrivalDate() != null ? updateMonsterDTO.getArrivalDate().toString() : ""}">
+               value="${updateMonsterDTO.getArrivalDate() != null ? updateMonsterDTO.getArrivalDate().toString() : ""}"
+               class="${bindingResult != null && bindingResult.hasFieldErrors("arrivalDate") ? "input-error" : ""}">
+        @if(bindingResult != null && bindingResult.hasFieldErrors("arrivalDate"))
+            <div class="error-text">
+                ${bindingResult.getFieldError("arrivalDate").getDefaultMessage()}
+            </div>
+        @endif
     </div>
     <div>
         <label>Danger Level</label>
@@ -41,7 +74,13 @@
                name="dangerLevel"
                min="0"
                max="10"
-               value="${updateMonsterDTO.getDangerLevel()}">
+               value="${updateMonsterDTO.getDangerLevel()}"
+               class="${bindingResult != null && bindingResult.hasFieldErrors("dangerLevel") ? "input-error" : ""}">
+        @if(bindingResult != null && bindingResult.hasFieldErrors("dangerLevel"))
+            <div class="error-text">
+                ${bindingResult.getFieldError("dangerLevel").getDefaultMessage()}
+            </div>
+        @endif
     </div>
     <div>
         <label>Tamed Level</label>
@@ -49,7 +88,13 @@
                name="tamedLevel"
                min="0"
                max="10"
-               value="${updateMonsterDTO.getTamedLevel()}">
+               value="${updateMonsterDTO.getTamedLevel()}"
+               class="${bindingResult != null && bindingResult.hasFieldErrors("tamedLevel") ? "input-error" : ""}">
+        @if(bindingResult != null && bindingResult.hasFieldErrors("tamedLevel"))
+            <div class="error-text">
+                ${bindingResult.getFieldError("tamedLevel").getDefaultMessage()}
+            </div>
+        @endif
     </div>
     <div>
         <label>Status:</label>

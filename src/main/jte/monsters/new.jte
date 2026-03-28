@@ -16,7 +16,7 @@
 <div class="container">
 <h1>Add new monster to the center</h1>
 
-    <form class="monster-form" action="/monsters" method="post" enctype="multipart/form-data">
+    <form class="monster-form" action="/monsters" method="post" enctype="multipart/form-data" novalidate>
     <div>
         <div class="form-group">
             <label for="name">Name</label>
@@ -46,25 +46,56 @@
                 </div>
             @endif
         </div>
-    <div>
-        <label>Species:</label>
-        <input type="text" name="species" value="${createMonsterDTO.getSpecies()}">
-    </div>
-    <div>
-        <label>Description:</label>
-        <textarea name="description">${createMonsterDTO.getDescription()}</textarea>
-    </div>
-    <div>
-        <label>Arrival Date:</label>
-        <input type="date" name="arrivalDate" value="${createMonsterDTO.getArrivalDate() != null ? createMonsterDTO.getArrivalDate().toString() : ""}">
-    </div>
+        <div>
+            <label>Species:</label>
+            <input type="text"
+                   name="species"
+                   value="${createMonsterDTO.getSpecies()}"
+                   class="${bindingResult != null && bindingResult.hasFieldErrors("species") ? "input-error" : ""}">
+
+            @if(bindingResult != null && bindingResult.hasFieldErrors("species"))
+                <div class="error-text">
+                    <span class="error-icon">!</span>
+                    ${bindingResult.getFieldError("species").getDefaultMessage()}
+                </div>
+            @endif
+        </div>
+        <div>
+            <label>Description:</label>
+            <textarea name="description"
+                      class="${bindingResult != null && bindingResult.hasFieldErrors("description") ? "input-error" : ""}">
+${createMonsterDTO.getDescription()}
+</textarea>
+
+            @if(bindingResult != null && bindingResult.hasFieldErrors("description"))
+                <div class="error-text">
+                    <span class="error-icon">!</span>
+                    ${bindingResult.getFieldError("description").getDefaultMessage()}
+                </div>
+            @endif
+        </div>
+        <div>
+            <label>Arrival Date:</label>
+            <input type="date"
+                   name="arrivalDate"
+                   value="${createMonsterDTO.getArrivalDate() != null ? createMonsterDTO.getArrivalDate().toString() : ""}"
+                   class="${bindingResult != null && bindingResult.hasFieldErrors("arrivalDate") ? "input-error" : ""}">
+
+            @if(bindingResult != null && bindingResult.hasFieldErrors("arrivalDate"))
+                <div class="error-text">
+                    <span class="error-icon">!</span>
+                    ${bindingResult.getFieldError("arrivalDate").getDefaultMessage()}
+                </div>
+            @endif
+        </div>
         <div>
             <label>Danger Level</label>
             <input type="number"
                    name="dangerLevel"
                    min="0"
                    max="10"
-                   value="${createMonsterDTO.getDangerLevel()}">
+                   value="${createMonsterDTO.getDangerLevel()}"
+                   class="${bindingResult != null && bindingResult.hasFieldErrors("dangerLevel") ? "input-error" : ""}">
         </div>
         <div>
             <label>Tamed Level</label>
@@ -72,7 +103,8 @@
                    name="tamedLevel"
                    min="0"
                    max="10"
-                   value="${createMonsterDTO.getTamedLevel()}">
+                   value="${createMonsterDTO.getTamedLevel()}"
+                   class="${bindingResult != null && bindingResult.hasFieldErrors("tamedLevel") ? "input-error" : ""}">
         </div>
 
     <button type="submit">Save monster</button>
